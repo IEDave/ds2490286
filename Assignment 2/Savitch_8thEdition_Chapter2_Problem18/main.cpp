@@ -2,8 +2,10 @@
  * File:   main.cpp
  * Author: David Smith
  * Created on January 18, 2014, 8:59 PM
- * Savitch, 8th Edition - Chapter 2, Problem 17:
- * 
+ * Savitch, 8th Edition - Chapter 2, Problem 18:
+ * Using the Harris-Benedict equatios, calculate BMR based on user
+ * input (height, weight, age) and determine the number of chocolate bars
+ * the person should consume to maintain their weight.
  */
 
 //System Libraries
