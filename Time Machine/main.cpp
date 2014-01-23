@@ -32,14 +32,15 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-unsigned short minutes(unsigned short hr, unsigned short min, char ampm) {
+unsigned short minutes(unsigned short hr, 
+        unsigned short min, char ampm) {
     hr += (ampm=='p' && hr!=CNV_24HR)?CNV_24HR:0;
     hr -= (ampm=='a' && hr==CNV_24HR)?CNV_24HR:0;
     return hr*CNV_MIN_HRS+min;
 }
 
 void read(unsigned short &hr, unsigned short &min,
-    char &ampm) {
+        char &ampm) {
    char dum;
    cout << "Input a time" << endl;
    cout << "Format xx:xx am/pm" << endl;
@@ -48,8 +49,8 @@ void read(unsigned short &hr, unsigned short &min,
   
 }
 
-unsigned short diff(unsigned short strt,
-        unsigned short stp) {
+unsigned short diff(unsigned short strt, 
+                unsigned short stp) {
     short min=stp-strt;
     return (min>0)?min:min+2*CNV_24HR*CNV_MIN_HRS;
 }
