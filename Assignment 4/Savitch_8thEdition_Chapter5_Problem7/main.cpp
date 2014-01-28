@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: David W. Smith
  * Created on January 27, 2014, 12:33 AM
- * Savitch, 8th Edition - Chapter 5, Problem 6:
+ * Savitch, 8th Edition - Chapter 5, Problem 7:
  * Rework Problem 6 so that it accepts meters and centimeters for input, and
  * converts to feet and inches.
  */
@@ -16,7 +16,7 @@ const float CVT_FT_MTR = 3.048e-1;    //0.3048 meters in 1 foot
 const float CVT_MTR_CM = 1.0e2;       //100 centimeters per meter
 const float SHFT_DEC = 1.0e2;         //shifting decimal point
 const float CVT_FT_IN = 1.2e1;        //12 inches per foot
-const float CVT_RND_IMP = 5.0e-2;         //.005 factor to avoid truncating
+const float CVT_RND_IMP = 5.0e-2;     //.005 factor to avoid truncating
                                       //significant digits
 
 //Function Prototypes

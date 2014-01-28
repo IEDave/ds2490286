@@ -15,7 +15,7 @@ using namespace std;
 const float CVT_FT_MTR = 3.048e-1;    //0.3048 meters in 1 foot
 const float CVT_MTR_CM = 1.0e2;       //100 centimeters per meter
 const float CVT_FT_IN = 1.2e1;        //12 inches per foot
-const float CVT_RND_MTR = 5.0e-3;         //.005 factor to avoid truncating
+const float CVT_RND_MTR = 5.0e-3;     //.005 factor to avoid truncating
                                       //significant digits
 
 //Function Prototypes
@@ -40,6 +40,8 @@ int main(int argc, char** argv) {
         if (iCont == 'y')
             iCont = 'Y';
     } while(iCont == 'Y');
+    
+    //Exit,stage right
     return 0;
 }
 
