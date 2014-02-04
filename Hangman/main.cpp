@@ -8,16 +8,7 @@
  * Think "Wheel of Fortune" without Pat Sajak or Vanna White and you're on
  * the right track.
  * This game was (somewhat) derived from from a game presented in the book
- * "Basic Computer Games" by David H. Ahl. When presuming that I simply
- * cribbed someone else's code, note 3 things:
- * 1) The game of "hangman" has been around for quite a bit longer than
- *    computer systems;
- * 2) The source code presented was in DEC BASIC-PLUS, not C++;
- * 3) The source was written well before object oriented programming or
- *    structured programming methodologies existed - in short, "...you ain't
- *    never seen so many GOTOs in your life, mister!". Hence, the original code
- *    is largely unusable, except as pseudocode - and not terribly useful as
- *    that.
+ * "Basic Computer Games" by David H. Ahl.
  */
 //System Libraries
 #include <cstdlib>
@@ -32,25 +23,26 @@ const int WRD_COL = 32, DISP_COL = 15, DISP_ROW = 15, WRD_ROW = 10,
 
 //Function Prototypes
 void upCase(char &);
-void iniWord(char [][WRD_COL], bool[]);
+void iniWord(char [][WRD_COL]);
 void iniDisp(char [][DISP_COL]);
-void doHang(char [][WRD_COL],char [][DISP_COL]);
-void dump(char [][DISP_COL]);
+void doHang(char [][DISP_COL],char [][WRD_COL]);
+void dspHang(char [][DISP_COL]);
+void updtHng(char [][DISP_COL]);
+bool strFind(char [], char, unsigned short, char [][DISP_COL]);
 
 //Execution begins here
 int main(int argc, char** argv) {
     //Define local variables
     char wrdList[WRD_ROW][WRD_COL], sDisp[DISP_ROW][DISP_COL], iCont;
-    bool usedWrd[WRD_ROW];
     //Seed random number generator
-    
+    srand(static_cast<unsigned int>(time(0)));
     //Initialize word list & display matrix
-    iniWord(wrdList,usedWrd);
+    iniWord(wrdList);
     iniDisp(sDisp);
     //Main execution loop
     do {
         //call function doHang(wrdList,sDisp) - play 1 game of Hangman
-        dump(sDisp);
+        doHang(sDisp,wrdList);
         //Confirm with user - are we done?
         cout << "Play again(Y/N)?";
         cin >> iCont;
@@ -64,7 +56,7 @@ void upCase(char &chkIt) {
     (chkIt >= 'a' && chkIt <= 'z')? chkIt=chkIt-'a'+'A':chkIt=chkIt;
 }
 
-void iniWord(char words[][WRD_COL], bool avail[]) {
+void iniWord(char words[][WRD_COL]) {
     strcpy(words[0],"AARDVARK");
     strcpy(words[1],"ALIMENTARY");
     strcpy(words[2],"ADVICE");
@@ -76,8 +68,6 @@ void iniWord(char words[][WRD_COL], bool avail[]) {
     strcpy(words[8],"DINKUM");
     strcpy(words[9],"DWEEZIL");
     
-    for (int i=1; i<=MAX_WORD; i++)
-        avail[i] = true;
     return;
 }
 
@@ -100,29 +90,58 @@ void iniDisp(char dMatrix[][DISP_COL]) {
     return;
 }
 
-void doHang(char dMatrix[][WRD_COL],char words[][DISP_COL]) {
+void doHang(char dMatrix[][DISP_COL],char words[][WRD_COL]) {
     //define local variables
-    char word[WRD_COL];
-    //randomly pick a word
+    char word[WRD_COL],letr;
+    unsigned short badLetr = 0, wrdLen,wrdLoc;
+    bool isWord;
+    //randomly pick a word, get its length & location in array
+    //wrdLoc = rand()%MAX_WORD;
+    wrdLoc = 0;
+    strcpy(word,words[wrdLoc]);
+    wrdLen = strlen(word);
     //loop
-    //   ask user for a letter (cvt. to uppercase)
-    //   look for letters in word
-    //   if found
-    //      update partial word
-    //   else
-    //      update hangman
-    //   display results
+    do {
+        //ask user for a letter (cvt. to uppercase)
+        cout << "Letter? ";
+        cin >> letr;
+        upCase(letr);
+        if (letr >= 'A' && letr <= 'Z') {
+            if (strFind(word, letr, wrdLen, dMatrix)) {
+                dspHang(dMatrix);
+                cout << "Found " << letr << "." << endl;
+            } else {
+                badLetr++;
+                updtHng(dMatrix);
+                dspHang(dMatrix);
+                cout << "Didn't find " << letr << "." << endl;
+            }
+        } else {
+              badLetr++;
+              updtHng(dMatrix);
+              dspHang(dMatrix);
+              cout << "Didn't find " << letr << "." << endl;
+        }
+        isWord = (!strncmp(word,dMatrix[11],wrdLen));
+
     //   if word completed
     //      "YOU WIN!"
     //      exit loop
     //   else if hangman complete
     //      "YOU LOSE!"
     //      exit loop
-    //repeat     
+    //repeat
+    } while ((badLetr < MAX_WORD-1) && (!isWord));
+    if (isWord) {
+        cout << "YOU WIN!";
+    } else if (badLetr >= MAX_WORD-1) {
+        cout << "YOU LOSE!";
+    }
+    cout << endl;
     return;
 }
 
-void dump(char dMatrix[][DISP_COL]) {
+void dspHang(char dMatrix[][DISP_COL]) {
     for (int row = 0; row <= DISP_ROW-1; row++) {
         for (int col = 0; col <= DISP_COL-1; col++) {
             if (dMatrix[row][col] != '\0') 
@@ -133,5 +152,21 @@ void dump(char dMatrix[][DISP_COL]) {
             }      
         }
     }
+}
+
+void updtHng(char dMatrix[][DISP_COL]) {
+    return;
+}
+
+bool strFind(char wrd[], char ltr, unsigned short len,
+             char display[][DISP_COL]) {
+    bool isFnd = false;
+    for (int i = 0; (i < len)&&(wrd[i]!= '\0') ; i++) {
+        if (wrd[i] == ltr) {
+            isFnd = true;
+            display[11][i] = ltr;
+        }
+    }
+    return isFnd;
 }
 
