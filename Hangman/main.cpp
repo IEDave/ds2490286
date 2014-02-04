@@ -123,14 +123,6 @@ void doHang(char dMatrix[][DISP_COL],char words[][WRD_COL]) {
               cout << "Didn't find " << letr << "." << endl;
         }
         isWord = (!strncmp(word,dMatrix[11],wrdLen));
-
-    //   if word completed
-    //      "YOU WIN!"
-    //      exit loop
-    //   else if hangman complete
-    //      "YOU LOSE!"
-    //      exit loop
-    //repeat
     } while ((badLetr < MAX_WORD-1) && (!isWord));
     if (isWord) {
         cout << "YOU WIN!";
@@ -154,7 +146,27 @@ void dspHang(char dMatrix[][DISP_COL]) {
     }
 }
 
-void updtHng(char dMatrix[][DISP_COL]) {
+void updtHng(char dMatrix[][DISP_COL],unsigned short errCnt) {
+    switch(errCnt) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        case 8:
+            break;
+        case 9:
+            break;      
+    }
     return;
 }
 
