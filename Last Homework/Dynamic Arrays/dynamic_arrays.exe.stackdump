@@ -1,0 +1,10 @@
+Exception: STATUS_ACCESS_VIOLATION at eip=0040124C
+eax=00000000 ebx=0022AC5C ecx=20000038 edx=00000000 esi=00000000 edi=0022CD84
+ebp=0022AC08 esp=0022ABE0 program=C:\Users\rcc\Desktop\Dynamic Arrays\dist\Debug\Cygwin_4.x-Windows\dynamic_arrays.exe, pid 5408, thread main
+cs=001B ds=0023 es=0023 fs=003B gs=0000 ss=0023
+Stack trace:
+Frame     Function  Args
+0022AC08  0040124C (00000000, 00000064, 0000000A, 00000000)
+0022AC38  004011F6 (00000001, 0022AC5C, 20010100, 61007F58)
+0022ACF8  61007FB5 (00000000, 0022CD84, 61007120, 00000000)
+End of stack trace
