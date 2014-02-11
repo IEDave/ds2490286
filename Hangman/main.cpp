@@ -4,7 +4,7 @@
  * Created on February 3, 2014, 7:11 PM
  * Purpose: This is an implementation of the game "Hangman", where a user
  * attempts to guess the letters of a randomly selected word. If the user
- * makes 10 unsuccessful guesses, they lose the game - if less, they win.
+ * makes 9 unsuccessful guesses, they lose the game - if less, they win.
  * Think "Wheel of Fortune" without Pat Sajak or Vanna White and you're on
  * the right track.
  * This game was (somewhat) derived from from a game presented in the book
@@ -14,6 +14,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <fstream>
 #include <cstring>
 using namespace std;
 
@@ -133,7 +134,7 @@ void doHang(char dMatrix[][DISP_COL],char words[][WRD_COL],
     if (isWord) {
         cout << "YOU WIN!";
     } else if (badLetr >= totWrds-1) {
-        cout << "YOU LOSE!";
+        cout << "YOU LOSE!\a";
     }
     cout << endl;
     return;
