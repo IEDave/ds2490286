@@ -136,9 +136,11 @@ void iniDisp(char dMatrix[][DISP_COL]) {
 void doHang(char dMatrix[][DISP_COL],char words[][WRD_COL],
             int rows, int cols, int totWrds=10) {
     //define local variables
+    const int HANGMAN = 9;
     char word[WRD_COL],letr;
     unsigned short badLetr = 0,wrdLen,wrdLoc;
     bool isWord=false;
+    
     //randomly pick a word, get its length & location in array
     wrdLoc = rand()%totWrds;
     strcpy(word,words[wrdLoc]);
@@ -146,10 +148,10 @@ void doHang(char dMatrix[][DISP_COL],char words[][WRD_COL],
     //Initialize display matrix, print cheery welcome message & display
     //empty gallows
     iniDisp(dMatrix);
-    cout << "Welcome to HANGMAN" << totWrds << endl;
+    cout << "Welcome to HANGMAN" << endl;
     dspHang(dMatrix,rows);
     //loop
-    while((badLetr < totWrds-1) && (!isWord)) {
+    while((badLetr < HANGMAN) && (!isWord)) {
         //ask user for a letter (cvt. to uppercase)
         cout << "Letter? ";
         cin >> letr;
@@ -178,7 +180,7 @@ void doHang(char dMatrix[][DISP_COL],char words[][WRD_COL],
     }
     if (isWord)
         cout << "YOU WIN!";
-    else if (badLetr >= totWrds-1)
+    else if (badLetr >= HANGMAN)
         cout << "YOU LOSE! Word was (" << word << ")." << endl;
     cout << endl;
     return;
@@ -276,7 +278,7 @@ void wrdSort(const char fname[] = "words.dat") {
     ostream.open(fname);
     if (!ostream.fail()) {
         for (int idx = 0; idx < words.size(); idx++){
-            cout << words[idx] << endl;
+//            cout << words[idx] << endl;
             ostream << words[idx] << endl;
         }
     } else
