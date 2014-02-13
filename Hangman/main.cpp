@@ -11,9 +11,11 @@
  * "Basic Computer Games" by David H. Ahl.
  */
 //System Libraries
+#include <vector>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <cstring>
 using namespace std;
@@ -23,28 +25,36 @@ const int WRD_COL = 32, DISP_COL = 15;
 
 //Function Prototypes
 void upCase(char &);
-void iniWord(char [][WRD_COL]);
+bool isFile(const char []);
+int iniWord(char [][WRD_COL]);
+int iniWord(char [][WRD_COL], const char[]);
 void iniDisp(char [][DISP_COL]);
 void doHang(char [][DISP_COL],char [][WRD_COL], int, int, int);
 void dspHang(char [][DISP_COL],int);
 void updtHng(char [][DISP_COL],unsigned short);
 bool strFind(char [], char, unsigned short, char [][DISP_COL]);
+void wrdSort(const char []);
 
 //Execution begins here
 int main(int argc, char** argv) {
     //Define local constants
-    const int DISP_ROW = 15, WRD_ROW = 10, MAX_WORD = 10;
+    const int DISP_ROW = 15, WRD_ROW = 10;
     //Define local variables
     char wrdList[WRD_ROW][WRD_COL], sDisp[DISP_ROW][DISP_COL], iCont;
+	int maxWord;
     //Seed random number generator
     srand(static_cast<unsigned int>(time(0)));
     //Initialize word list & display matrix
-    iniWord(wrdList);
+    if (isFile("words.dat")){
+        wrdSort("words.dat");
+        maxWord = iniWord(wrdList,"words.dat"); 
+    } else
+        maxWord = iniWord(wrdList);
     iniDisp(sDisp);
     //Main execution loop
     do {
         //call function doHang() - play 1 game of Hangman
-        doHang(sDisp,wrdList,DISP_ROW,WRD_ROW,MAX_WORD);
+        doHang(sDisp,wrdList,DISP_ROW,WRD_ROW,maxWord);
         //Confirm with user - are we done?
         cout << "Play again(Y/N)?";
         cin >> iCont;
@@ -58,7 +68,38 @@ void upCase(char &chkIt) {
     (chkIt >= 'a' && chkIt <= 'z')? chkIt=chkIt-'a'+'A':chkIt=chkIt;
 }
 
-void iniWord(char words[][WRD_COL]) {
+bool isFile(const char fname[] = "words.dat") {
+    ifstream file;
+    file.open(fname);
+    if (file.fail()) {
+        file.close();
+        return false;
+    } else {
+        file.close();
+        return true;
+    }     
+}
+int iniWord(char words[][WRD_COL],const char fname[] = "words.dat") {
+    //Declare local variables
+    ifstream istream;
+    string word;
+    int wrdCnt = 0, wrdLen, i;
+    
+    istream.open(fname);
+    while(istream >> word) {
+        for (i = 0; i <= word.length(); i++) {
+            upCase(word[i]);
+            words[wrdCnt][i] = word[i];
+        }
+        words[wrdCnt][i] = '\0';
+        wrdCnt++;
+    }
+    istream.close();
+ 
+    return wrdCnt;
+}
+
+int iniWord(char words[][WRD_COL]) {
     strcpy(words[0],"AARDVARK");
     strcpy(words[1],"ALIMENTARY");
     strcpy(words[2],"ADVICE");
@@ -70,7 +111,7 @@ void iniWord(char words[][WRD_COL]) {
     strcpy(words[8],"DINKUM");
     strcpy(words[9],"DWEEZIL");
     
-    return;
+    return 10;
 }
 
 void iniDisp(char dMatrix[][DISP_COL]) {
@@ -93,11 +134,11 @@ void iniDisp(char dMatrix[][DISP_COL]) {
 }
 
 void doHang(char dMatrix[][DISP_COL],char words[][WRD_COL],
-            int rows, int cols, int totWrds) {
+            int rows, int cols, int totWrds=10) {
     //define local variables
     char word[WRD_COL],letr;
     unsigned short badLetr = 0,wrdLen,wrdLoc;
-    bool isWord;
+    bool isWord=false;
     //randomly pick a word, get its length & location in array
     wrdLoc = rand()%totWrds;
     strcpy(word,words[wrdLoc]);
@@ -105,10 +146,10 @@ void doHang(char dMatrix[][DISP_COL],char words[][WRD_COL],
     //Initialize display matrix, print cheery welcome message & display
     //empty gallows
     iniDisp(dMatrix);
-    cout << "Welcome to HANGMAN" << endl;
+    cout << "Welcome to HANGMAN" << totWrds << endl;
     dspHang(dMatrix,rows);
     //loop
-    do {
+    while((badLetr < totWrds-1) && (!isWord)) {
         //ask user for a letter (cvt. to uppercase)
         cout << "Letter? ";
         cin >> letr;
@@ -121,21 +162,24 @@ void doHang(char dMatrix[][DISP_COL],char words[][WRD_COL],
                 badLetr++;
                 updtHng(dMatrix,badLetr);
                 dspHang(dMatrix,rows);
-                cout << "Didn't find " << letr << "." << endl;
+                cout << "Didn't find " << letr << ". "
+                     << "That was error #" << setw(2) << badLetr << "."
+                     << endl;
             }
         } else {
               badLetr++;
               updtHng(dMatrix,badLetr);
               dspHang(dMatrix,rows);
-              cout << "Didn't find " << letr << "." << endl;
+              cout << "Didn't find " << letr << ". "
+                   << "That was error #" << setw(2) << badLetr << "."
+                   << endl;
         }
         isWord = (!strncmp(word,dMatrix[11],wrdLen));
-    } while ((badLetr < totWrds-1) && (!isWord));
-    if (isWord) {
-        cout << "YOU WIN!";
-    } else if (badLetr >= totWrds-1) {
-        cout << "YOU LOSE!\a";
     }
+    if (isWord)
+        cout << "YOU WIN!";
+    else if (badLetr >= totWrds-1)
+        cout << "YOU LOSE! Word was (" << word << ")." << endl;
     cout << endl;
     return;
 }
@@ -162,7 +206,7 @@ void updtHng(char dMatrix[][DISP_COL],unsigned short errCnt) {
             dMatrix[4][9] = '|';
             break;
         case 3:
-            dMatrix[4][8] = static_cast<char>(92);
+            dMatrix[4][8] = '\\';
             break;
         case 4:
             dMatrix[4][10] = '/';
@@ -174,7 +218,7 @@ void updtHng(char dMatrix[][DISP_COL],unsigned short errCnt) {
             dMatrix[6][8] = '/';
             break;
         case 7:
-            dMatrix[6][10] = static_cast<char>(92);
+            dMatrix[6][10] = '\\';
             break;
         case 8:
             dMatrix[7][7] = '-';
@@ -198,3 +242,45 @@ bool strFind(char wrd[], char ltr, unsigned short len,
     return isFnd;
 }
 
+void wrdSort(const char fname[] = "words.dat") {
+    //Declare local variables
+    ifstream istream;
+    ofstream ostream;
+    vector<string> words;
+    string word;
+    int strtScn, minIdx;
+    //Open file
+    istream.open(fname);
+    //Load words into vector, converting characters to uppercase as we go
+    while(istream >> word) {
+        for (int i = 0; i <= word.length(); i++)
+            upCase(word[i]);
+        words.push_back(word);
+    }
+    //Close file
+    istream.close();
+    //Sort the vector
+    for (strtScn = 0; strtScn < words.size()-1; strtScn++) {
+        minIdx = strtScn;
+        word = words[strtScn];
+        for (int idx=strtScn+1;idx < words.size();idx++) {
+            if (words[idx] < word) {
+                word = words[idx];
+                minIdx = idx;
+            }
+        }
+        words[minIdx] = words[strtScn];
+        words[strtScn] = word;
+    }
+    //Write sorted output back onto file
+    ostream.open(fname);
+    if (!ostream.fail()) {
+        for (int idx = 0; idx < words.size(); idx++){
+            cout << words[idx] << endl;
+            ostream << words[idx] << endl;
+        }
+    } else
+        cout << "Error writing sorted file." << endl;
+    ostream.close();
+    return;
+}
