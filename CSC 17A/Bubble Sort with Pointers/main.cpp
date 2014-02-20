@@ -47,19 +47,24 @@ int main(int argc, char** argv) {
 }
 int binSrch(int *a,int n,int findIt) {
     //Define local variables
-    int min=0, max=n, mid;
+    char ch;
+    int min=0, max=n-1, mid;
     bool isFound = false;
     do {
-        cout << "Min = " << min << " - max = " << max << endl;
-        mid = (max-min)/2;
+        mid = ((max-min)/2)+min;
+        //cout << "Min = " << min << " - max = " << max << endl;
+        //cout << "a[" << mid << "] = " << *(a+mid) << " - findIt = "
+        //     << findIt << endl;
         if (*(a+mid) > findIt)
             max = mid;
         else if(*(a+mid) < findIt)
             min = mid;
-        else if(*(a+mid)== findIt) {
+        else if(*(a+mid) == findIt) {
             isFound = true;
         }
-    } while (min < max || (!isFound));
+        //cout << "?";
+        //cin >> ch;        
+    } while (((max-min) > 1) && (!isFound));
     if (isFound)
         return mid;
     else
@@ -89,7 +94,7 @@ void bblSort(int *array,int size) {
 
 int *fillAry(int elemnts){
     //Create array & assign address to variable
-    int *aray=new int[elemnts];
+    int *aray = new int[elemnts];
     //Fill array with random 2-digit numbers
     for(int i = 0; i < elemnts; i++) {
         *(aray+i) = rand() % 90 + 10;
