@@ -38,7 +38,8 @@ int main(int argc, char** argv) {
     //Print sorted array
     prtAry(array,NUM,NUM_COLS);
     //Search for element in sorted array
-    binSrch(array,NUM,FIND_IT);
+    cout << "Search for number (" << FIND_IT << ") in array returned ("
+         << binSrch(array,NUM,FIND_IT) << ")." << endl;
     //Release array memory back to system
     delete []array;
     //Exit, stage right.
@@ -46,10 +47,23 @@ int main(int argc, char** argv) {
 }
 int binSrch(int *a,int n,int findIt) {
     //Define local variables
-    int min=0, max=n;
+    int min=0, max=n, mid;
+    bool isFound = false;
     do {
-        
-    } while (min < max);
+        cout << "Min = " << min << " - max = " << max << endl;
+        mid = (max-min)/2;
+        if (*(a+mid) > findIt)
+            max = mid;
+        else if(*(a+mid) < findIt)
+            min = mid;
+        else if(*(a+mid)== findIt) {
+            isFound = true;
+        }
+    } while (min < max || (!isFound));
+    if (isFound)
+        return mid;
+    else
+        return -1;
 }
 
 void bblSort(int *array,int size) {
