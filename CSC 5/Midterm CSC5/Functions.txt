@@ -1,0 +1,17 @@
+Major functions
+
+int main(int argc, char** argv) – required in c++, this is the main point of execution. Arguments allow for parameter passing on command line when invoked from OS prompt, or by being called in HTML/scripting code.
+
+void upCase(char &chkIt) – simple routine to change lowercase characters to uppercase.
+
+void iniWord(char words[][WRD_COL]) – creates a list of words in the words[][] matrix.Likely candidate for modification to utilize file I/O.
+
+void iniDisp(char dMatrix[][DISP_COL]) – populates the dMatrix[][] display matrix with initial setup of display screen. Shows empty gallows * asterisk-filled field where words are displayed.
+
+void doHang(char dMatrix[][DISP_COL],char words[][WRD_COL], int rows, int cols, int totWrds) – the main function of the entire game. Main sets up the environment for doHang to use, but doHang handles all aspects of game play.
+
+void dspHang(char dMatrix[][DISP_COL], int rows) – displays the updated dMatrix contents; used when the Hangman has been added to, or when letters are successfully added to the word.
+
+void updtHng(char dMatrix[][DISP_COL],unsigned short errCnt) – based on the errCnt variable, this function successively updates the Hangman. If the Hangman is completed before the word is guessed, the game is over.
+
+bool strFind(char wrd[], char ltr, unsigned short len, char display[][DISP_COL]) – this function looks to find all occurrences of a letter in a word. If any are found, it return a boolean TRUE, else it returns a boolean FALSE.

@@ -1,0 +1,109 @@
+MidTerm  CIS5  
+
+Points for each quesiton
+Menu 5
+1    10
+2    15
+3    15
+4    20
+5    15
+6    20
+
+Note: Submit the Midterm to my RCC email account mark.lehr@rcc.edu
+with the following subject:  LastName,FirstName - Midterm - 40375/40651.
+
+Submit the solutions/program in a zipped file.
+Do the best you can and turn in as much as you can.  
+
+Note:  I just want one program for the solution to all the problems 
+that follow. The program should prompt the user for which problem 
+solution to display. Use a do-while and switch construct somewhat
+like the following for the display of the menu and the selection of
+which problem to run.  Or you can use the last menu program I sent
+you.  Whichever, you find easier.
+
+	int inN;
+        do{
+         Menu();
+         inN=getN();
+         switch(inN){
+          case 1:    problem1();break;
+          case 2:    problem2();break;
+          case 3:    problem3();break;
+          case 4:    problem4();break;
+          case 5:    problem5();break;
+          case 6:    problem6();break;
+          default:   def(inN);}
+        }while(inN<7);
+
+Note:  In addition, I included this menu program if you haven't already
+looked at it.
+
+1)  The first program should ask for the number of lines the
+user wants to output then the display should scroll down that many 
+lines with line number starting where col=row. (i.e., ->)
+
+1
+ 2
+  3
+   4
+    5
+
+Flowchart and code this solution.
+	
+
+2)  One interesting application of computers is drawing graphs and 
+bar charts (sometimes called "histograms"). Write an application that 
+reads up to 5 numbers (each between 3 and 27). For each number entered, 
+your program should draw a line containing that number of adjacent 
+asterisks. For example, if your program reads the number seven, it 
+should print *******.  
+
+
+3)  Develop an application that will determine if a bank customer 
+has exceeded his checking account. The following 
+facts are available and input into the program:
+
+a. Account number (Five digits only)
+b. Balance at the beginning of the month 
+c. Total of all checks written by this customer this month 
+d. Total of all deposits credited to this customer's account this 
+     month.
+
+The program should input each of these facts as 
+unsigned shorts, calculate the new balance, display the new balance and 
+debit the account $27.75 if overdrawn. Also, if overdrawn, tell the 
+customer an additional $27.75 fee has been accessed and what the 
+balance whould be with this fee included.
+
+
+4)  Develop an application that will determine the gross pay for 
+employees. The company pays "straight-time" for the 
+first 20 hours worked, double time for all hours worked in 
+excess of 20 hours but less than 40 hours, and triple time for any 
+hours worked over 40 hours. Inputs to the program would be hours
+worked and rate of pay.  Output would be gross pay.
+
+5) An ISP has 3 different subscription packages
+	a)  $29.95 per month, 11 hours access.  Additional hours
+	    are $2.75 up to 22 hours then $5 for all additional
+		hours.
+	b)  $34.95 per month, 22 hours access.  Additional hours
+        are $1.50 up to 33 hours then $2.50 for each
+		hour above this limit.
+	c)  $39.75 per month unlimited access
+Write a program that calculates a customers monthly bill.  Ask which
+package how many hours then display the monthly charge.
+
+6)  Just another sequence, The Funny Sequence
+
+Funny numbers are numbers whose only prime factors are 2, 3 or 5. The sequence
+1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, ...
+shows the first 11 funny numbers. By convention, 1 is included.
+Write a program to find and print the 1501'st funny/ugly number.
+Input and Output
+There is no input to this program. Output should consist of a single line as shown below, 
+with <number> replaced by the number computed.
+Sample output
+The 1501'st ugly number is <number>. 
+A flowchart is required with the solution 

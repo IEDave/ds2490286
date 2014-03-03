@@ -18,6 +18,7 @@ using namespace std;
 
 //Function Prototypes
 int *fillAry(int);
+void fillAry(int [], const int);
 void prtAry(int *,int,int);
 void bblSort(int *,int);
 int binSrch(int *,int,int);
@@ -26,35 +27,50 @@ int binSrch(int *,int,int);
 int main(int argc, char** argv) {
     //Define local variables & constants
     int NUM = 100, NUM_COLS = 10, FIND_IT = 50;
-    int *array;
+    int *array,brray[NUM];
     //Seed random number generator
     srand(static_cast<unsigned int>(time(0)));
-    //Create array with random elements
+    //Create arrays with random elements
     array = fillAry(NUM);
+    fillAry(brray,NUM);
     //Print array
+    cout << "Pointer...";
     prtAry(array,NUM,NUM_COLS);
+    //call again with static array, demonstrating that the difference
+    //between arrays and pointers is largely syntactic.
+    cout << "Array...";
+    prtAry(brray,NUM,NUM_COLS);
     //Sort using Bubble Sort
+    cout << "Sorting both structures..." << endl;
     bblSort(array,NUM);
+    bblSort(brray,NUM);
+    cout << endl;
     //Print sorted array
+    cout << "Pointer...";
     prtAry(array,NUM,NUM_COLS);
+    cout << "Array...";
+    prtAry(brray,NUM,NUM_COLS);
     //Search for element in sorted array
     cout << "Search for number (" << FIND_IT << ") in array returned ("
          << binSrch(array,NUM,FIND_IT) << ")." << endl;
-    //Release array memory back to system
+    cout << "Search for number (" << FIND_IT << ") in brray returned ("
+         << binSrch(brray,NUM,FIND_IT) << ")." << endl;
+    //Release array memory back to system (prevents memory leaks)
     delete []array;
     //Exit, stage right.
     return 0;
 }
+
 int binSrch(int *a,int n,int findIt) {
     //Define local variables
     char ch;
     int min=0, max=n-1, mid;
     bool isFound = false;
+    //Pick element in middle of search area & compare to see if it's a match.
+    //If it is, stop - otherwise, subdivide search area based on whether the
+    //element found is greater than or less than what you're looking for.
     do {
         mid = ((max-min)/2)+min;
-        //cout << "Min = " << min << " - max = " << max << endl;
-        //cout << "a[" << mid << "] = " << *(a+mid) << " - findIt = "
-        //     << findIt << endl;
         if (*(a+mid) > findIt)
             max = mid;
         else if(*(a+mid) < findIt)
@@ -62,9 +78,11 @@ int binSrch(int *a,int n,int findIt) {
         else if(*(a+mid) == findIt) {
             isFound = true;
         }
-        //cout << "?";
-        //cin >> ch;        
+        //Keep searching until element is found or the search area has nothing
+        //left to look at.
     } while (((max-min) > 1) && (!isFound));
+    //If the element is found, return the position in the array to the calling
+    //program, else return a -1, indicating not found (-1 is an invalid index).
     if (isFound)
         return mid;
     else
@@ -92,6 +110,15 @@ void bblSort(int *array,int size) {
     return;
 }
 
+void fillAry(int a[], const int elemnts){
+    //Fill array with random 2-digit numbers
+    for(int i = 0; i < elemnts; i++) {
+        a[i] = rand() % 90 + 10;
+    }
+    //arrays are passed by reference, so no need to return anything
+    return;
+}
+
 int *fillAry(int elemnts){
     //Create array & assign address to variable
     int *aray = new int[elemnts];
@@ -104,6 +131,8 @@ int *fillAry(int elemnts){
 }
 
 void prtAry(int *a,int elemnts,int brkOn){
+    //Print elements in a 3 character field (right-justified), with a line
+    //break at each brkOn element.
     cout << endl;
     for(int i = 0; i < elemnts; i++){
         cout << setw(3) << *(a + i);
