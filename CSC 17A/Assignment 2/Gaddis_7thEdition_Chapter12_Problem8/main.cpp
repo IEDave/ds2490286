@@ -25,8 +25,8 @@ using namespace std;
 //Function Prototypes
 void mkArray(int *,int);
 void ptArray(int *,int,int);
-void arrayToFile(const char *,int *);
-void fileToArray(const char *,int *);
+void arrayToFile(const char *,int *,int);
+void fileToArray(const char *,int *,int);
 bool cmpAray(int *,int *,int);
 
 //Execution begins here
@@ -43,9 +43,9 @@ int main(int argc, char** argv) {
     cout << "Initial array:" << endl;
     ptArray(array,SIZE,10);
     //Write array out to file
-    arrayToFile("test.bin",array);
+    arrayToFile("test.bin",array,SIZE);
     //Read array from file
-    fileToArray("test.bin",brray);
+    fileToArray("test.bin",brray,SIZE);
     //Compare array contents to see if they are the same
     if (cmpAray(array,brray,SIZE)) {
         cout << "Array contents differ." << endl;
@@ -58,6 +58,7 @@ int main(int argc, char** argv) {
     return 0;
 }
 
+//Compare 2 arrays - return false if equal, true if not.
 bool cmpAray(int *nums1,int *nums2, int sz) {
     //Define local variable
     bool isDiff = false;
@@ -70,11 +71,13 @@ bool cmpAray(int *nums1,int *nums2, int sz) {
     return isDiff;  
 }
 
+//Fill array with random 2-digit integers
 void mkArray(int *nums,int sz) {
     for(int i=0; i<sz; i++)
         nums[i] = rand()%90+10;
 }
 
+//Print contents of array, breaking at brkOn intervals.
 void ptArray(int *nums,int sz,int brkOn) {
     for(int i=0; i<sz; i++){
         cout << nums[i] << " ";
@@ -85,24 +88,26 @@ void ptArray(int *nums,int sz,int brkOn) {
     return;
 }
 
-void arrayToFile(const char *fname,int *nums) {
+//Write array contents to file (modified from Gaddis - book is in error)
+void arrayToFile(const char *fname,int *nums,int sz) {
     //Define local variables
     fstream file;
     file.open(fname,ios::out|ios::binary);
     if (!file.fail()) {
-        file.write(reinterpret_cast<char *>(nums),sizeof(nums));
+        file.write(reinterpret_cast<char *>(nums),sz*sizeof(int));
     } else {
         cout << "Unable to open file." << endl;
     }
     file.close();
 }
 
-void fileToArray(const char *fname,int *nums) {
+//Read array contents to file (modified from Gaddis - book is in error)
+void fileToArray(const char *fname,int *nums,int sz) {
     //Define local variables
     fstream file;
     file.open(fname,ios::in|ios::binary);
     if (!file.fail()) {
-        file.read(reinterpret_cast<char *>(nums),sizeof(nums));
+        file.read(reinterpret_cast<char *>(nums),sz*sizeof(int));
     } else {
         cout << "Unable to open file." << endl;
     }
