@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataroot xmlns:od="urn:schemas-microsoft-com:officedata" generated="2012-12-30T12:04:01">
+<PotentialTours>
+<TourName>Galapagos Relaxation</TourName>
+<Location>Galapagos Islands</Location>
+<Country>Ecuador</Country>
+<TourPricePerPerson>4200</TourPricePerPerson>
+<SingleSupplement>1000</SingleSupplement>
+<TourType>Boat</TourType>
+<Nights>7</Nights>
+<Description>Island beauty; spa; diverse wildlife</Description>
+</PotentialTours>
+<PotentialTours>
+<TourName>Madagascar Wildlife</TourName>
+<Location>Madagascar</Location>
+<Country>Madagascar</Country>
+<TourPricePerPerson>5500</TourPricePerPerson>
+<SingleSupplement>800</SingleSupplement>
+<TourType>Hiking</TourType>
+<Nights>8</Nights>
+<Description>Exotic animals; stunning landscape; hiking</Description>
+</PotentialTours>
+<PotentialTours>
+<TourName>South American Adventure</TourName>
+<Location>Pantanal</Location>
+<Country>Brazil</Country>
+<TourPricePerPerson>4500</TourPricePerPerson>
+<SingleSupplement>800</SingleSupplement>
+<TourType>Hiking</TourType>
+<Nights>8</Nights>
+<Description>Exotic wildlife; hiking; Savannah</Description>
+</PotentialTours>
+<PotentialTours>
+<TourName>Amazon River Adventure Tour</TourName>
+<Location>Manaus</Location>
+<Country>Brazil</Country>
+<TourPricePerPerson>6800</TourPricePerPerson>
+<SingleSupplement>1200</SingleSupplement>
+<TourType>Boat</TourType>
+<Nights>12</Nights>
+<Description>River wildlife; native villages; cruise; hiking</Description>
+</PotentialTours>
+</dataroot>
