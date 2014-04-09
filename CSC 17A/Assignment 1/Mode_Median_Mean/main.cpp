@@ -30,7 +30,7 @@ void destroy(int *);
 //Execution begins here
 int main(int argc, char** argv) {
     //Define local variables
-    const int SIZE=106;
+    const int SIZE=15;
     int mFreq,nElem;
     //Create & populate an array
     int *array = fillAry(SIZE);
@@ -42,10 +42,6 @@ int main(int argc, char** argv) {
     //Print sorted array
     prntAry(brray,SIZE,10);
     cout << endl;
-    //Print median of set
-    cout << "Median of set = " << median(brray, SIZE) << endl;
-    //Print mean of set
-    cout << "Mean of set = " << mean(brray,SIZE) << endl;
     //Generate mode set
     int *srray = mode(brray,SIZE);
     //Print mode set
@@ -80,14 +76,16 @@ float median(int *a,int n) {
      //Print # of elements & max frequency first, then...
      cout << "Number of elements in mode set = " << *(a) << endl;
      cout << "Max frequency = " << *(a+1) << endl;
-     //...print the actual mode set.
-     cout << "Mode set = {";
-     for (int i=2; i<(n-1); i++) {
-         cout << *(a+i) << ", ";
-         if (i%perLine == (perLine-1))
-             cout << endl;
+     if (*(a) > 0) {
+         //...print the actual mode set.
+         cout << "Mode set = {";
+         for (int i=2; i<(n-1); i++) {
+             cout << *(a+i) << ", ";
+             if (i%perLine == (perLine-1))
+                 cout << endl;
+         }
+         cout << *(a+(n-1)) << "}." << endl;
      }
-     cout << *(a+(n-1)) << "}." << endl;
 }
 
 int *mode(int *a, int n){
