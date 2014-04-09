@@ -1,0 +1,16 @@
+1.  Fix a crash issue while there's missing tag in functionList.xml.
+2.  Fix UTF-8 (w/o BOM) detection bug.
+3.  Fix line numbers space problem while folding.
+4.  Fix opening file in Notepad++ makes Aero-snapped cancelled.
+5.  Change behaviour: statusbar reports the number of selected characters instead of number of bytes now.
+6.  Add "close all tab to left" and "close all tab to right" features.
+7.  Add direct access to the tab feature (Ctrl + NumPad).
+8.  Fix macro replaying crash issue.
+9.  Test line #9
+10. Test line #10
+11. Test line #11
+12. Test line #12
+13. Test line #13
+14. Test line #14
+15. Test line #15
+16. Test line #16
