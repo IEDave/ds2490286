@@ -88,7 +88,7 @@ void ptArray(int *nums,int sz,int brkOn) {
     return;
 }
 
-//Write array contents to file (modified from Gaddis - book is in error)
+//Write array contents to file
 void arrayToFile(const char *fname,int *nums,int sz) {
     //Define local variables
     fstream file;
@@ -101,7 +101,7 @@ void arrayToFile(const char *fname,int *nums,int sz) {
     file.close();
 }
 
-//Read array contents to file (modified from Gaddis - book is in error)
+//Read array contents to file
 void fileToArray(const char *fname,int *nums,int sz) {
     //Define local variables
     fstream file;
