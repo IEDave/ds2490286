@@ -295,7 +295,7 @@ void prntChk(Employee emp) {
 
 void numWrds(int chkVal) {
     const char * const ones[20] = {"ZERO", "ONE", "TWO", "THREE","FOUR","FIVE",
-    "SIX","SEVEN","EIGHT","NINE", "ELEVEN","TWELVE","THIRTEEN","FOURTEEN",
+    "SIX","SEVEN","EIGHT","NINE","TEN","ELEVEN","TWELVE","THIRTEEN","FOURTEEN",
     "FIFTEEN","SIXTEEN","SEVENTEEN","EIGHTEEN","NINETEEN"};
     const char * const tens[10] = {"", "TEN", "TWENTY", "THIRTY","FORTY",
     "FIFTY","SIXTY","SEVENTY","EIGHTY","NINETY"};
