@@ -1,0 +1,24 @@
+Project 2:
+==========
+
+Your presentation of this project will be during class/lab on 02/13/14.
+
+You must be present.
+
+Your project needs to be a minimum of 250 lines.
+
+It must illustrate all the concepts we have covered, most recently being functions and arrays.
+1 and 2 dimensional arrays. Passing the arrays between functions.
+
+Your functions need to illustrate pass by value, pass by reference, defaulted parameters, returning primitive data types.
+
+You need to make sure your output is formatted and you should read and write to files.
+
+It must also include a writeup. See project 1 attachments
+
+Utilize github and make sure I am a collaborator.
+
+As always, submit the result here, copy yourself on the email, attach the zipped solution folder and send to
+
+mark.lehr@rcc.edu with subject:
+Lastname, Firstname - Project 2 02/13/14 - 40375
